@@ -7,29 +7,33 @@ import (
 	"purple_school/hw-project-3/files"
 )
 
-func WriteIntoFile(bin bins.Bin, name string) {
+func WriteIntoFile(bin bins.Bin, name string) error {
 	if !files.IsJson(name) {
-		fmt.Println("Файл должен быть с расширением JSON")
-		return
+		err := fmt.Errorf("Файл должен быть с расширением JSON")
+		return err
 	}
 
 	file, err := os.Create(name)
 	if err != nil {
-		fmt.Println("Ошибка создания файла:", err)
-		return
+		errStr := fmt.Errorf("Ошибка создания файла: %w", err)
+		return errStr
 	}
 
 	defer file.Close()
 
 	data, err := bin.ToBytes()
 	if err != nil {
-		fmt.Println("Ошибка конвертации данных:", err)
+		errStr := fmt.Errorf("Ошибка конвертации данных: %w", err)
+		return errStr
 	}
 
 	_, err = file.Write(data)
 	if err != nil {
-		fmt.Println("Ошибка записи в файл:", err)
+		errStr := fmt.Errorf("Ошибка записи в файл: %w", err)
+		return errStr
 	}
+
+	return nil
 }
 
 func ReadFromFile(name string) ([]byte, error) {
@@ -40,7 +44,7 @@ func ReadFromFile(name string) ([]byte, error) {
 
 	data, err := files.ReadFile(name)
 	if err != nil {
-		errStr := fmt.Errorf("Ошибка чтения файла:", err)
+		errStr := fmt.Errorf("Ошибка чтения файла: %w", err)
 		return nil, errStr
 	}
 
