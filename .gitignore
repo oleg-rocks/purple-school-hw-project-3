@@ -1,0 +1,37 @@
+# Binaries
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+
+# Coverage files
+*.coverprofile
+
+# Go workspace
+go.work
+go.work.sum
+
+# Logs
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE settings (GoLand, IntelliJ, etc.)
+.idea/
+
+# Test temp files
+*.tmp
+
+# Generated Go files
+*.gen.go
+
+# Uncomment this if you don't commit vendor
+vendor/
+
+# Result files
+data.json
